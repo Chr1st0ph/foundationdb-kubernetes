@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: foundationdb
+  labels:
+    app: foundationdb
+spec:
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - name: client
+    port: 4500
+    targetPort: 4500
+  selector:
+    app: foundationdb
+---
+
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: foundationdb
+  labels:
+    app: foundationdb
+spec:
+  serviceName: foundationdb
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: foundationdb
+    spec:
+      containers:
+      - name: foundationdb
+        image: chr1st0ph/foundationdb
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "2"
+#            memory: "1024Mi"
+          requests:
+            cpu: "0.5"
+            memory: "1024Mi"
+        env:
+        - name: FDB_COORDINATORS_FQDN
+#          value: "foundationdb-0.foundationdb.default.svc.cluster.local,foundationdb-1.foundationdb.default.svc.cluster.local,foundationdb-2.foundationdb.default.svc.cluster.local"
+          value: "foundationdb-0.foundationdb.default.svc.cluster.local"
+        ports:
+        - name: client
+          containerPort: 4500
+        readinessProbe:
+          tcpSocket:
+            port: 4500
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 4500
+          initialDelaySeconds: 3
+          periodSeconds: 20
