@@ -23,6 +23,8 @@ metadata:
     app: foundationdb
 spec:
   serviceName: foundationdb
+  updateStrategy:
+    type: RollingUpdate
   replicas: 2
   template:
     metadata:
@@ -33,17 +35,25 @@ spec:
       - name: foundationdb
         image: chr1st0ph/foundationdb
         imagePullPolicy: Always
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - >
+                  fdbcli --exec "configure new single memory" || true
         resources:
           limits:
-            cpu: "2"
-#            memory: "1024Mi"
+            cpu: "1"
           requests:
-            cpu: "0.5"
+            cpu: "0.25"
             memory: "1024Mi"
         env:
         - name: FDB_COORDINATORS_FQDN
-#          value: "foundationdb-0.foundationdb.default.svc.cluster.local,foundationdb-1.foundationdb.default.svc.cluster.local,foundationdb-2.foundationdb.default.svc.cluster.local"
           value: "foundationdb-0.foundationdb.default.svc.cluster.local"
+        - name: FDB_CLUSTER_CONTENT
+          value: 1P2wnIMi:NTZwIjJv@127.0.0.1:4500
         ports:
         - name: client
           containerPort: 4500
