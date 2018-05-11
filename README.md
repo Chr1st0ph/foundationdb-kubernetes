@@ -8,7 +8,7 @@ You can start a StatefulSet, and scale it up and down ( keep fault-tolerance of 
 Let me know about your experience.
 
 
-###configuration
+### configuration
 
 ##### Environment variables
 
