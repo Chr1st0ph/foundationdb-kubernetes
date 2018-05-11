@@ -54,6 +54,12 @@ spec:
           value: "foundationdb-0.foundationdb.default.svc.cluster.local"
         - name: FDB_CLUSTER_CONTENT
           value: 1P2wnIMi:NTZwIjJv@127.0.0.1:4500
+#        - name: FDB_DATACENTER_ID
+#          value: DC1
+        - name: FDB_MACHINE_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         ports:
         - name: client
           containerPort: 4500
