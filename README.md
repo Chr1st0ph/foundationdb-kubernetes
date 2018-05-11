@@ -1,14 +1,19 @@
 ## work-in-progress: FoundationDB running on Kubernetes
 
 
-A very basic Kubernetes statefulset running a FoundationDB cluster.
+A very basic Kubernetes StatefulSet running a FoundationDB cluster.
+
+You can start a StatefulSet, and scale it up and down ( keep fault-tolerance of your cluster in mind ).
+
+Let me know about your experience.
+
 
 ###configuration
 
 ##### Environment variables
 
-* FDB\_DATACENTER\_ID : set datacenter_id
-* FDB\_MACHINE\_ID : set machine_id ( defaults to spec.nodeName )
+* FDB\_DATACENTER\_ID : set datacenter_id ( optional )
+* FDB\_MACHINE\_ID : set machine_id ( optional, defaults to spec.nodeName )
 
 ### current limitations/issues:
 
