@@ -15,7 +15,7 @@ Let me know about your experience, please.
 * FDB\_DATACENTER\_ID : set datacenter_id ( optional )
 * FDB\_MACHINE\_ID : set machine_id ( optional, defaults to spec.nodeName ).
   
-  Hint: If you want to test redundancy/coordinator changes on a single-node-environment ( e.g. Minikube ), then you need to disable this in [statefulset.yaml](https://github.com/Chr1st0ph/foundationdb-kubernetes/blob/master/yaml/statefulset.yaml).
+  Hint: If you want to test redundancy/coordinator changes on a single-node-environment ( e.g. Minikube ), then you need to disable the FDB\_MACHINE\_ID environment variable in [statefulset.yaml](https://github.com/Chr1st0ph/foundationdb-kubernetes/blob/master/yaml/statefulset.yaml).
 
 ### current limitations/issues:
 
